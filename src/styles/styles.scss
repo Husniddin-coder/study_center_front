@@ -1,0 +1,41 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+
+
+
+// For light theme
+// @import '~primeng/resources/themes/nova-light/theme.css';
+
+.cdk-overlay-container { z-index: 1200 !important; }
+:host::ng-deep {
+    .mat-calendar .ng-tns-c2377240281-23 .ng-trigger .ng-trigger-fadeInCalendar {
+        z-index: 2000 !important;
+    }
+    .mat-datepicker-content {
+        z-index: 2000 !important; /* Ensure this is higher than your modal's z-index */
+      }
+
+
+
+}
+
+::ng-deep .cdk-overlay-container .mat-datepicker-content{
+    z-index:2000;
+  }
+
+:root {
+--dialog-background-color: #ffffff;
+--dialog-text-color: #000000;
+}
+
+
+/* Dark mode */
+:root.dark {
+--dialog-background-color: #1f2937; /* Tailwind's gray-800 */
+--dialog-text-color: #ffffff;
+}

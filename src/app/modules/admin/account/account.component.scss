@@ -1,0 +1,25 @@
+#myFileUpload{
+    background-color: #5046E5; /* Change to your desired background color */
+    border-color: #5046E5;     /* Change to your desired border color */
+    border-radius: 25px;
+    font-size: 14px;
+    height: 40px;
+    width: 200px;
+    color: #fff;
+}
+
+.account-padding{
+    padding: 50px 0 50px 100px;
+    position: relative;
+    justify-content: center;
+}
+.image-and-title{
+    display: flex;
+}
+.profileImage{
+    padding-top: 70px;
+    gap: 10px;
+}
+.profileTitle{
+    padding: 30px 0 0 10px;
+}

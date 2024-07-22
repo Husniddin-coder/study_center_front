@@ -1,0 +1,198 @@
+<p-toast></p-toast>
+<!-- Show Add modal -->
+<div class="card flex justify-content-center text-base">
+    <p-dialog panelClass="fuse-confirmation-dialog-panel" header="{{ 'Add Student' | transloco }}" [modal]="true"
+        [(visible)]="visible" (onHide)="closeDialog()" [styleClass]="currentTheme + '-theme-dialog'"
+        [style]="{ width: '70vw', maxWidth: '70vw',}">
+        <span class="p-text-secondary block mb-5 myclass">{{ "Add new Student information" | transloco }}.</span>
+        <div class=" overflow-hidden">
+            <div class="flex ">
+                <!-- Selected student form -->
+                <form class="flex flex-col w-full" [formGroup]="selectedStudentForm">
+                    <div class="flex flex-col sm:flex-row py-8 pr-8 pl-4">
+                        <!-- student images -->
+                        <div class="flex flex-col items-center sm:items-start mb-8 sm:mb-0">
+                            <div class="flex flex-col items-center">
+                                <div class="w-32 h-44 border rounded overflow-hidden">
+                                    <ng-container *ngIf="
+                                            selectedStudentForm.get('images')
+                                                ?.value?.length;
+                                            else noImage
+                                        ">
+                                        <div class="image-container">
+                                            <img class="w-full h-full object-cover" [src]="
+                                                    selectedStudentForm.get(
+                                                        'images'
+                                                    )?.value[0] ?? ''
+                                                " />
+                                        </div>
+                                    </ng-container>
+                                    <ng-template #noImage>
+                                        <div
+                                            class="image-container flex items-center justify-center min-h-20 text-lg font-semibold">
+                                            {{ "NO IMAGE" | transloco }}
+                                        </div>
+                                    </ng-template>
+                                </div>
+                                <div><button class="mt-2" mat-flat-button [color]="'primary'"
+                                        (click)="fileInput.click()">
+                                        {{
+                                            isAdded == true
+                                                ? ('Photo' | transloco)
+                                                : ('Change Photo' | transloco)
+                                        }}
+                                    </button>
+                                    <input #fileInput type="file" hidden (change)="onFileSelected($event)"
+                                        accept="image/*" /></div>
+
+                            </div>
+                        </div>
+
+                        <div class="flex flex-auto flex-wrap">
+                            <!-- Name, SKU & etc. -->
+                            <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                                <!-- First Name -->
+                                <mat-form-field class="w-full">
+                                    <mat-label>{{
+                                        "First Name" | transloco
+                                    }}</mat-label>
+                                    <input matInput [formControlName]="'firstName'" />
+                                    <mat-icon class="icon-size-5" matSuffix [svgIcon]="
+                                            'heroicons_solid:user-circle'
+                                        "></mat-icon>
+                                </mat-form-field>
+
+                                <!-- Last Name -->
+                                <mat-form-field class="w-full">
+                                    <mat-label>{{
+                                        "Last Name" | transloco
+                                    }}</mat-label>
+                                    <input matInput [formControlName]="'lastName'" />
+                                    <mat-icon class="icon-size-5" matSuffix [svgIcon]="
+                                            'heroicons_solid:user-circle'
+                                        ">
+                                    </mat-icon>
+                                </mat-form-field>
+                                <!-- Birthday -->
+                                <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
+                                    <mat-label>{{
+                                        "Birthday" | transloco
+                                    }}</mat-label>
+                                    <input matInput [matDatepicker]="pickerBirthday"
+                                        [formControlName]="'dateOfBirth'" />
+                                    <mat-datepicker-toggle matSuffix [for]="pickerBirthday"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerBirthday></mat-datepicker>
+                                </mat-form-field>
+                                <!-- Major -->
+                                <mat-form-field class="w-full">
+                                    <mat-label>{{
+                                        "Major" | transloco
+                                    }}</mat-label>
+                                    <input matInput [formControlName]="'major'" />
+                                    <mat-icon matSuffix>school</mat-icon>
+                                </mat-form-field>
+                                <!-- Study Language -->
+                                <mat-form-field class="w-full " [subscriptSizing]="'dynamic'">
+                                    <mat-label>{{
+                                        "Study Language" | transloco
+                                    }}</mat-label>
+                                    <mat-select [value]="'Uzbek'" (selectionChange)="selectLanguage($event)">
+                                        <!-- <mat-option [value]="'Uzbek'">Uzbek</mat-option> -->
+                                        <ng-container *ngFor="let lang of languages;">
+                                            <mat-option [value]="lang">{{lang}}</mat-option>
+                                        </ng-container>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="flex flex-col w-full lg:w-2/4 sm:pl-8">
+                                <mat-form-field class="w-full">
+                                    <mat-label>{{
+                                        "Email" | transloco
+                                    }}</mat-label>
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:envelope'" matSuffix>
+                                    </mat-icon>
+                                    <input [formControlName]="'email'" matInput />
+                                </mat-form-field>
+                                <mat-form-field class="w-full">
+                                    <mat-label>{{
+                                        "Phone" | transloco
+                                    }}</mat-label>
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:phone'" matSuffix>
+                                    </mat-icon>
+                                    <input [formControlName]="'phoneNumber'" matInput />
+                                </mat-form-field>
+                                <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
+                                    <mat-label>{{
+                                        "Enrollment Date" | transloco
+                                    }}</mat-label>
+                                    <input matInput [matDatepicker]="pickerEnrollment"
+                                        [formControlName]="'enrollmentDate'" />
+                                    <mat-datepicker-toggle matSuffix [for]="pickerEnrollment"></mat-datepicker-toggle>
+                                    <mat-datepicker #pickerEnrollment></mat-datepicker>
+                                </mat-form-field>
+                                <!-- Password -->
+                                <mat-form-field class="w-full">
+                                    <mat-label>{{
+                                        "Password" | transloco
+                                    }}</mat-label>
+                                    <input type="password" matInput [formControlName]="'password'" />
+                                    <mat-icon [svgIcon]="'heroicons_solid:key'" matSuffix>password</mat-icon>
+                                </mat-form-field>
+                                <div class="flex items-center space-x-4">
+                                    <mat-form-field class="flex-grow">
+                                        <mat-label>{{ "Stipend" | transloco }}</mat-label>
+                                        <input matInput [formControlName]="'stipend'" />
+                                        <mat-checkbox matSuffix class="flex items-center" [color]="'primary'"
+                                            (change)="onCheckboxChange($event)">
+                                        </mat-checkbox>
+                                    </mat-form-field>
+                                    <div class="flex flex-col space-y-2">
+                                        <mat-label>{{ "Gender" | transloco }}</mat-label>
+                                        <mat-radio-group aria-label="Select an option" class="flex space-x-4">
+                                            <mat-radio-button value="1">Male</mat-radio-button>
+                                            <mat-radio-button value="2">Female</mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <p-confirmDialog />
+        <ng-template pTemplate="footer">
+            <div class="flex items-center justify-between w-full border-t px-8 py-4">
+                <button class="-ml-4" mat-button [color]="'warn'" (click)="confirm2($event)">
+                    {{ isAdded == false ? ("Delete" | transloco) : "" }}
+                </button>
+                <div class="-ml-4"></div>
+                <div class="flex items-center">
+                    <div class="flex items-center mr-4" *ngIf="flashMessage">
+                        <ng-container *ngIf="flashMessage === 'success'">
+                            <mat-icon class="text-green-500" [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                            <span class="ml-2">{{
+                                isAdded == true
+                                    ? ("Student added" | transloco)
+                                    : ("Student updated" | transloco)
+                            }}</span>
+                        </ng-container>
+                        <ng-container *ngIf="flashMessage === 'error'">
+                            <mat-icon class="text-red-500" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+                            <span class="ml-2">{{
+                                "An error occurred, try again!" | transloco
+                            }}</span>
+                        </ng-container>
+                    </div>
+                    <button mat-flat-button [color]="'primary'" (click)="createOrUpdateStudent()">
+                        {{
+                            isAdded == true
+                                ? ("Add" | transloco)
+                                : ("Update" | transloco)
+                        }}
+                    </button>
+                </div>
+            </div>
+        </ng-template>
+    </p-dialog>
+</div>

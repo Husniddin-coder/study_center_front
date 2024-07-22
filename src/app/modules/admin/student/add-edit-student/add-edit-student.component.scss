@@ -1,0 +1,55 @@
+.fuse-confirmation-dialog-panel {
+
+    @screen md {
+        @apply w-128;
+    }
+
+    .mat-mdc-dialog-container {
+
+        .mat-mdc-dialog-surface {
+            padding: 0 !important;
+        }
+    }
+}
+
+// .dark-theme-dialog .ui-dialog {
+//     background-color: var(--fuse-bg-dialog-dark, #2d3748); /* Example dark background */
+//     color: var(--fuse-text-default-dark, #ffffff); /* Example dark text color */
+//   }
+
+
+
+
+    .dark-theme-dialog .p-dialog-header {
+        background-color: var(--fuse-bg-app-bar-dark, #1a202c);
+        color: white;
+    }
+
+    .dark-theme-dialog .p-dialog-content {
+        background-color: var(--fuse-bg-default);
+        color: white;
+    }
+
+    .dark-theme-dialog .p-dialog-footer {
+        background-color: var(--fuse-bg-app-bar-dark, #1a202c);
+        color: white;
+    }
+
+    .light-theme-dialog .p-dialog-header {
+        background-color: var(--fuse-bg-app-bar-light, #ffffff);
+        color: black;
+    }
+
+    .light-theme-dialog .p-dialog-content {
+        background-color: var(--fuse-bg-default, #ffffff);
+        color: black;
+    }
+
+    .light-theme-dialog .p-dialog-footer {
+        background-color: var(--fuse-bg-app-bar-light, #ffffff);
+        color: black;
+    }
+
+    .p-dialog-content span{
+        margin: 5px;
+    }
